@@ -1,7 +1,7 @@
 # simple-sd-card-setup
 The goal is to have a permanent nixos system installed on the sdcard of a raspberry pi 4.
 
-## Start with the [initial-setup](../initial-setup)
+## Start with the [initial-setup-23-05](../initial-setup-23-05)
 
 ## ssh into the rpi4 (default password: nixos)
 ``` bash 
