@@ -1,11 +1,14 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4;
     tmp.useTmpfs = true;
-    initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     # ttyAMA0 is the serial console broken out to the GPIO
     kernelParams = [
         "8250.nr_uarts=1"
@@ -26,21 +29,17 @@
   # Required for the Wireless firmware
   hardware.enableRedistributableFirmware = true;
 
-  networking = {
-    hostName = "nixos-raspi-4"; # Define your hostname.
-    networkmanager = {
-      enable = true;
-    };
-  };
+  networking.hostName = "nixos-raspi-4"; # Define your hostname.
 
   environment.systemPackages = with pkgs; [
     vim
+    tmux
   ];
 
   services.openssh.enable = true;
 
   users = {
-    defaultUserShell = pkgs.zsh;
+    defaultUserShell = pkgs.bash;
     mutableUsers = false;
     users.root = {
       password = "nixos";
@@ -54,15 +53,6 @@
 
   environment.variables = {
     EDITOR = "vim";
-  };
-
-  programs.zsh = {
-    enable = true;
-    syntaxHighlighting.enable = true;
-    interactiveShellInit = ''
-      source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
-    '';
-    promptInit = ""; # otherwise it'll override the grml prompt
   };
 
   nix = {
@@ -79,20 +69,9 @@
     '';
   };
 
-  # Assuming this is installed on top of the disk image.
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
-  };
-
   nixpkgs.config = {
     allowUnfree = true;
   };
-
-  powerManagement.cpuFreqGovernor = "ondemand";
 
   zramSwap.enable = true;
 
