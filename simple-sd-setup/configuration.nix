@@ -6,7 +6,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4;
-    tmpOnTmpfs = true;
+    tmp.useTmpfs = true;
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     # ttyAMA0 is the serial console broken out to the GPIO
     kernelParams = [
@@ -21,11 +21,9 @@
   boot.loader.raspberryPi = {
     enable = true;
     version = 4;
+    firmwareConfig = "dtparam=sd_poll_once=on";
   };
   boot.loader.grub.enable = false;
-  boot.loader.generic-extlinux-compatible.enable = true;
-
-  boot.loader.raspberryPi.firmwareConfig = "dtparam=sd_poll_once=on";
 
   # Required for the Wireless firmware
   hardware.enableRedistributableFirmware = true;
@@ -70,7 +68,7 @@
   };
 
   nix = {
-    autoOptimiseStore = true;
+    settings.auto-optimise-store = true;
     gc = {
       automatic = true;
       dates = "weekly";
@@ -96,6 +94,6 @@
     allowUnfree = true;
   };
   powerManagement.cpuFreqGovernor = "ondemand";
-  system.stateVersion = "21.05";
+  system.stateVersion = "23.05";
   #swapDevices = [ { device = "/swapfile"; size = 3072; } ];
 }

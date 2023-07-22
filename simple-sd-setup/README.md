@@ -13,7 +13,7 @@ ssh nixos@nixos
 sudo vi /etc/nixos/configuration.nix
 ```
 
-## install the new version
+## install 
 ``` bash
 sudo nixos-install --root /
 ```
@@ -26,3 +26,9 @@ sudo reboot now
 ## connect to it via ssh
 ## done.
 
+## optionally, we can upgrade 
+``` bash
+sudo nixos-rebuild --upgrade boot
+
+sudo reboot now
+```
