@@ -77,7 +77,10 @@ shutdown now
 
 ## unplug the power, unplug the sdcard and plug back the power
 
-## connect to it via ssh
+## connect to it via ssh (default [configuration.nix](./configuration.nix) password: nixos)
+``` bash
+ssh nixos@nixos-raspi-4
+```
 ## done.
 
 ## optionally, we can upgrade 
