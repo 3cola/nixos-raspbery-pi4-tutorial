@@ -1,3 +1,5 @@
+# initial-setup
+The goal is to use an nixos image to boot on an install nixos system on the sd card of the rapsberry pi 4.
 
 ## Download nixos for raspery pi 4
 ``` bash
@@ -13,28 +15,11 @@ unzstd -d nixos-sd-image-22.11pre428574.20fc948445a-aarch64-linux.img.zst
 sudo dd if=nixos-sd-image-22.11pre428574.20fc948445a-aarch64-linux.img of=/dev/mmcblk0 bs=4096 conv=fsync status=progress  
 ```
 
-## plug the sdcard into your raspberry pi, plug an ethernet cable to tyour local network, plugin the electricity
+## plug the sdcard into your raspberry pi, plug an ethernet cable to your local network, plugin the power adapter
+You may need to wait few minutes before connecting in ssh for the initial setup...
 
 ## ssh into the rpi4 (default password: nixos)
 ``` bash 
 ssh nixos@nixos
 ```
-
-## edit the configuration.nix (see [configuration.nix](./configuration.nix) for an example initial configuration)
-``` bash
-sudo vi /etc/nixos/configuration.nix
-```
-
-## install the new version
-``` bash
-sudo nixos-install --root /
-```
-
-## restart
-``` bash
-sudo reboot now
-```
-
-## connect to it via ssh
-## done.
 
