@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
- # This configuration worked on 09-03-2021 nixos-unstable @ commit 102eb68ceec
- # The image used https://hydra.nixos.org/build/134720986
 
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4;
@@ -93,7 +91,10 @@
   nixpkgs.config = {
     allowUnfree = true;
   };
+
   powerManagement.cpuFreqGovernor = "ondemand";
+
+  zramSwap.enable = true;
+
   system.stateVersion = "23.05";
-  #swapDevices = [ { device = "/swapfile"; size = 3072; } ];
 }
